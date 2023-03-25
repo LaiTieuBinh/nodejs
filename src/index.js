@@ -8,7 +8,7 @@ const app = express();
 const port = 3000;
 
 const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, '/src/resources/public/')));
+app.use(express.static(path.join(__dirname, '/src/public/')));
 
 // HTTP logger
 app.use(morgan('combined'));
