@@ -10,6 +10,12 @@ const port = 3000;
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, '/src/public/')));
 
+// Middleware post method
+// Form
+app.use(express.urlencoded({extended: true}));
+// XML, axios, fetch, ajax, ...
+app.use(express.json());
+
 // HTTP logger
 app.use(morgan('combined'));
 
@@ -27,6 +33,16 @@ app.get("/", (req, res) => {
     res.render("home");
 });
 
+app.get("/search", (req, res) => {
+    res.render("search");
+});
+
+app.post("/search", (req, res) => {
+    // res.render("search");
+    console.log(req.body);
+    res.send()
+});
+
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+    console.log(`Example app listening on port http://localhost:${port}`);
 });
