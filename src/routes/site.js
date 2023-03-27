@@ -5,7 +5,7 @@ const siteController = require('../app/controllers/SiteController');
 const id = 1;
 
 router.post('/search', siteController.addSearch);
-router.get('/home', siteController.indexHome);
+router.get('/', siteController.indexHome);
 router.use('/profile', siteController.indexProfile);
 router.use('/search', siteController.indexSearch);
 
