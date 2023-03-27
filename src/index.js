@@ -1,14 +1,17 @@
-import express from 'express';
-import { engine } from 'express-handlebars';
-import morgan from 'morgan';
-import * as path from 'path';
+
+
+
+const express = require('express');
+const { engine } = require ('express-handlebars');
+const morgan = require('morgan');
+const path = require('path');
+const route = require('./routes');
 
 
 const app = express();
 const port = 3000;
 
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, '/src/public/')));
+app.use(express.static(path.join(__dirname, '/src/public')));
 
 // Middleware post method
 // Form
@@ -24,24 +27,8 @@ app.engine('hbs', engine({extname: '.hbs'}));
 app.set('view engine', 'hbs');
 app.set('views', './src/resources/views');
 
-
-app.get("/profile", (req, res) => {
-    res.render("profile");
-});
-
-app.get("/", (req, res) => {
-    res.render("home");
-});
-
-app.get("/search", (req, res) => {
-    res.render("search");
-});
-
-app.post("/search", (req, res) => {
-    // res.render("search");
-    console.log(req.body);
-    res.send()
-});
+// Routes
+route(app);
 
 app.listen(port, () => {
     console.log(`Example app listening on port http://localhost:${port}`);
