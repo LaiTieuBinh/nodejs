@@ -3,15 +3,17 @@ const { engine } = require('express-handlebars');
 const morgan = require('morgan');
 const path = require('path');
 const route = require('./routes');
-const db = require('./config/db');
+// const db = require('./config/db');
+const { connect } = require('./config/db');
 
 // connect to database
-db.connect();
+// db.connect();
+connect();
 
 const app = express();
 const port = 3000;
 
-app.use(express.static(path.join(__dirname, '/src/public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware post method
 // Form
@@ -31,5 +33,5 @@ app.set('views', './src/resources/views');
 route(app);
 
 app.listen(port, () => {
-    console.log(`Example app listening on port http://localhost:${port}`);
+    console.log(`App listening on port http://localhost:${port}`);
 });

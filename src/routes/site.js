@@ -6,7 +6,7 @@ const id = 1;
 
 router.post('/search', siteController.addSearch);
 router.get('/', siteController.indexHome);
-router.use('/profile', siteController.indexProfile);
-router.use('/search', siteController.indexSearch);
+router.get('/profile', siteController.indexProfile);
+router.get('/search', siteController.indexSearch);
 
 module.exports = router;
