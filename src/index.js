@@ -1,10 +1,11 @@
-const express = require('express');
-const { engine } = require('express-handlebars');
-const morgan = require('morgan');
-const path = require('path');
-const route = require('./routes');
+const express = require("express");
+const { engine } = require("express-handlebars");
+const morgan = require("morgan");
+const path = require("path");
+const route = require("./routes");
 // const db = require('./config/db');
-const { connect } = require('./config/db');
+const { connect } = require("./config/db");
+const methodOverride = require('method-override')
 
 // connect to database
 // db.connect();
@@ -13,7 +14,7 @@ connect();
 const app = express();
 const port = 3000;
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Middleware post method
 // Form
@@ -22,12 +23,23 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // HTTP logger
-app.use(morgan('combined'));
+app.use(morgan("combined"));
+
+// override method
+app.use(methodOverride('_method'))
 
 // Template engine
-app.engine('hbs', engine({ extname: '.hbs' }));
-app.set('view engine', 'hbs');
-app.set('views', './src/resources/views');
+app.engine(
+    "hbs",
+    engine({ 
+        extname: ".hbs", 
+        helpers: { 
+            sum: (a, b) => a + b 
+        } 
+    })
+);
+app.set("view engine", "hbs");
+app.set("views", "./src/resources/views");
 
 // Routes
 route(app);
