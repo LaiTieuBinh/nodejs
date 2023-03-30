@@ -87,12 +87,26 @@ class CourseController {
         } catch (error) {}
     }
 
-    //[Delete] /courses/:id/force
+    // [Delete] /courses/:id/force
     async forceDestroy (req, res, next) {
         try {
             await Course.deleteOne({ _id: req.params.id });
             res.redirect("back");
         } catch (error) {}
+    }
+
+// [POST] /courses/handle-form-actions
+    async handleFormAction (req, res, next) {
+        switch(req.body.action) {
+            case 'delete':
+                try {
+                    await Course.delete({ _id: { $in: req.body.courseIds } });
+                    res.redirect("back");
+                } catch (error) {}
+            break;
+            default:
+                res.json({message: 'Failed !!!'});
+        }
     }
 }
 

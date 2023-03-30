@@ -30,6 +30,7 @@ class MeController {
         }
     }
 
+    // [GET] /me/trash/courses
     async trashCourses(req, res, next) {
         try {
             const courses = await Course.findDeleted({});
