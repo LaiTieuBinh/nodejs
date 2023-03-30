@@ -9,16 +9,33 @@ const { multipleMongooseToObject } = require("../../util/mongoose");
 class MeController {
     // [GET] /me/stored/courses
     async storedCourses(req, res, next) {
+
+        // Promise.all([Course.find({}), Course.countDocumentsDeleted()])
+        //     .then(([courses, deletedCount]) =>
+        //         res.render("me/stored-courses", {
+        //             courses: multipleMongooseToObject(courses),
+        //             deletedCount,
+        //         })
+        //     )
+        //     .catch();
+
         try {
-            const courses = await Course.find({});
-            res.render("me/stored-courses", { courses : multipleMongooseToObject(courses)});
-        } catch (error) {}
+            const [courses, deletedCount] = await Promise.all([Course.find({}), Course.countDocumentsDeleted()]);
+            res.render("me/stored-courses", {
+                            courses: multipleMongooseToObject(courses),
+                            deletedCount,
+                        })
+        } catch (error) {
+            
+        }
     }
 
-    async trashCourses (req, res, next) {
+    async trashCourses(req, res, next) {
         try {
             const courses = await Course.findDeleted({});
-            res.render("me/trash-courses", { courses : multipleMongooseToObject(courses)});
+            res.render("me/trash-courses", {
+                courses: multipleMongooseToObject(courses),
+            });
         } catch (error) {}
     }
 }
