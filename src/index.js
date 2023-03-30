@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(morgan("combined"));
 
 // override method
-app.use(methodOverride('_method'))
+app.use(methodOverride('_method'));
 
 // Template engine
 app.engine(
