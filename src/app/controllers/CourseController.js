@@ -108,6 +108,28 @@ class CourseController {
                 res.json({message: 'Failed !!!'});
         }
     }
+
+    // [POST] /courses/handle-trash-course-actions
+    async handleTrashCourseActions (req, res, next) {
+        switch(req.body.action) {
+            case 'restore':
+                try {
+                    await Course.restore({ _id: { $in: req.body.courseIds } });
+                    res.redirect("back");
+                } catch (error) {}
+            break;
+            case 'delete-force':
+                try {
+                    await Course.deleteMany({ _id: { $in: req.body.courseIds } });
+                    res.redirect("back");
+                } catch (error) {}
+            break;
+            default:
+                res.json({message: 'Failed !!!'});
+        }
+        
+    }
+
 }
 
 module.exports = new CourseController();

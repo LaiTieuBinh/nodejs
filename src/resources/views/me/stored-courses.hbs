@@ -140,7 +140,7 @@
           btnCheckAllSubmit.click(function(e) {
             var isSubmitAble = !$(this).hasClass('disabled');
             
-            if(!isSubmitAble || selectEle[0].value =='') {
+            if(!isSubmitAble || selectEle[0].value == '') {
               e.preventDefault();
             } else {
               containerForm.submit();
@@ -154,7 +154,6 @@
             checkedCount > 0 ? btnCheckAllSubmit.removeClass('disabled') : btnCheckAllSubmit.addClass('disabled');
           }
 
-          
       })
 
     
